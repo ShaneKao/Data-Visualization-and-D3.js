@@ -1,0 +1,171 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+   <meta charset="utf-8" /> 
+   <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+ <style type="text/css">
+ </style>
+</head> 
+
+<h1 id="output"> The differences among the performance of the baseball players
+</h1> 
+<body>
+<p id="A">Click to see all hitter</p>
+<p id="R">Click to see right handed hitter</p>
+<p id="L">Click to see left handed hitter</p>
+<p id="B">Click to see switch hitter</p>
+<script type="text/javascript">
+
+var n = [];
+var ha = [];
+var hw = [];
+var a = [];
+var hr=[];
+var w = 800;
+var h = 600;
+var padding = 90;
+d3.csv('data/baseball_data.csv', function(csv){
+      
+csv.map(function(d) {
+    hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
+})
+		//Create scale functions
+			var xScale = d3.scale.linear()
+								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
+								 .range([padding, w - padding * 2]);
+			var yScale = d3.scale.linear()
+								 .domain([d3.min(hw, function(d) { return d[1]; }), d3.max(hw, function(d) { return d[1]; })])
+								 .range([h - padding, padding]);
+			var rScale = d3.scale.linear()
+								 .domain([d3.min(hw, function(d) { return d[2]; }), d3.max(hw, function(d) { return d[2]; })])
+								 .range([1,10]);
+			var cScale = d3.scale.linear()
+								 .domain([d3.min(hw, function(d) { return d[3]; }), d3.max(hw, function(d) { return d[3]; })])
+								 .range([200,50]);					 
+			//Define X axis
+			var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(5);
+			//Define Y axis
+			var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(10);
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			//Create circles
+			
+			svg.selectAll("circle")
+			   .data(hw)
+			   .enter()
+			   .append("circle")
+			   .attr("cx", function(d) {
+			   		return xScale(d[0]);
+			   })
+			   .attr("cy", function(d) {
+			   		return yScale(d[1]);
+			   })
+			   .attr("r", function(d) { //size: HR
+			   		return rScale(d[2]);
+			   })
+			   .attr("fill", function(d) { //color: avg
+					if(d[4]=="L"){
+			   		return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
+					if(d[4]=="R"){
+			   		return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
+					if(d[4]=="B"){
+			   		return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
+			   })
+			   	
+			   /*
+				 .on("click", function(d) {//selectall circle
+				
+				 if (d[4] == "R"){
+			   		d3.select(this).attr("fill","orange");}
+				if (d[4] == "B"){
+			   		console.log(d[4]);}	
+				
+			   })
+			   */
+			    .append("title")
+			   .text(function(d) {
+			   		return "Name: " + d[5]+"\n"+"Handedness: " + d[4]+"\n"+"Avg: " + d[3]+"\n"+"HR: " + d[2];
+			   });
+			   ;
+		
+			
+			//Create X axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+			
+			//Create Y axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);	
+			svg.append("text")      // text label for the x axis
+        .attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
+        .attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
+        .style("text-anchor", "middle")
+        .text("Height");
+svg.append("text")      // text label for the y axis
+        .attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
+        .attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
+        .style("text-anchor", "middle")
+        .text("Weight");			
+    });
+d3.selectAll("p").on("click", function() { //click paragraph to filter
+var xScale = d3.scale.linear()
+								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
+								 .range([padding, w - padding * 2]);
+var paragraphID = d3.select(this).attr("id");
+if (paragraphID == "A") {
+	d3.selectAll("circle").attr("cx", function(d) { 
+					if(d[4]=="L"){
+			   		return xScale(d[0]);}
+					if(d[4]=="R"){
+			   		return xScale(d[0]);}
+					if(d[4]=="B"){
+			   		return xScale(d[0]);}
+			   });};
+if (paragraphID == "R") {
+	d3.selectAll("circle").attr("cx", function(d) { 
+					if(d[4]=="L"){
+			   		return xScale(d[0])+1000000;}
+					if(d[4]=="R"){
+			   		return xScale(d[0]);}
+					if(d[4]=="B"){
+			   		return xScale(d[0])+1000000;}
+			   });};
+if (paragraphID == "L") {
+	d3.selectAll("circle").attr("cx", function(d) { 
+					if(d[4]=="L"){
+			   		return xScale(d[0]);}
+					if(d[4]=="R"){
+			   		return xScale(d[0])+1000000;}
+					if(d[4]=="B"){
+			   		return xScale(d[0])+1000000;}
+			   });};
+if (paragraphID == "B") {
+	d3.selectAll("circle").attr("cx", function(d) { 
+					if(d[4]=="L"){
+			   		return xScale(d[0])+1000000;}
+					if(d[4]=="R"){
+			   		return xScale(d[0])+1000000;}
+					if(d[4]=="B"){
+			   		return xScale(d[0]);}
+			   });};
+});
+
+		
+		
+
+</script> 
+</body>
+</html> 
