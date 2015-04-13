@@ -1,6 +1,3 @@
----
-output: pdf_document
----
 # Data Visualization and D3.js  
 
 ## The differences among the performance of the baseball players
@@ -27,4 +24,4 @@ I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A
 * Adding tooltip such that the plot can traceback to the original data point
 ![Initial d3 Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/d3_plot_v1.png)
 
-### Feedback# Data-Visualization-and-D3.js
+### Feedback
