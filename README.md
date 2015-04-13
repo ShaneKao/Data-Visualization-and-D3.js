@@ -10,7 +10,8 @@ The data set containing 1,157 baseball players including their handedness (right
 
 #### Data Visualization (R)
 
-I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A%2F%2Fs3.amazonaws.com%2Fudacity-hosted-downloads%2Fud507%2Fbaseball_data.csv&sa=D&sntz=1&usg=AFQjCNEkK8NRImfPdhM7cLkivKaJ0WldFA). Exploratory data analysis was conducted using Rstudio as follows: 
+I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A%2F%2Fs3.amazonaws.com%2Fudacity-hosted-downloads%2Fud507%2Fbaseball_data.csv&sa=D&sntz=1&usg=AFQjCNEkK8NRImfPdhM7cLkivKaJ0WldFA). Exploratory data analysis was conducted using Rstudio as follows:
+
 ![Initial R Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/r_plot.png)
 
 * x: `height`, y: `weight`
