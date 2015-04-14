@@ -24,7 +24,7 @@ var hr=[];
 var w = 800;
 var h = 600;
 var padding = 90;
-d3.csv('data/baseball_data.csv', function(csv){
+d3.csv('data/data.csv', function(csv){
       
 csv.map(function(d) {
     hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
