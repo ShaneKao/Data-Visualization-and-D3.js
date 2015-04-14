@@ -38,3 +38,5 @@ I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A
 #### Interview #3
 
 > Some data points overlap, it is hard to observe the effect of different type of hitter
+
+### Post-feedback Design
