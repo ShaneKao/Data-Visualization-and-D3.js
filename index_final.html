@@ -15,7 +15,6 @@
 <p id="L">Click to see left handed hitter</p>
 <p id="B">Click to see switch hitter</p>
 <script type="text/javascript">
-
 var n = [];
 var ha = [];
 var hw = [];
@@ -80,7 +79,7 @@ csv.map(function(d) {
 					if(d[4]=="B"){
 			   		return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
 			   })
-			   	
+		
 			   /*
 				 .on("click", function(d) {//selectall circle
 				
@@ -96,8 +95,107 @@ csv.map(function(d) {
 			   		return "Name: " + d[5]+"\n"+"Handedness: " + d[4]+"\n"+"Avg: " + d[3]+"\n"+"HR: " + d[2];
 			   });
 			   ;
-		
-			
+			//Create legend
+			svg.append("text")
+				.attr("x",600)
+				.attr("y",440)
+				.style("text-anchor", "middle")
+				.text(".239");
+			svg.append("text")
+				.attr("x",650)
+				.attr("y",440)
+				.style("text-anchor", "middle")
+				.text(".247");
+			svg.append("text")
+				.attr("x",700)
+				.attr("y",440)
+				.style("text-anchor", "middle")
+				.text(".255");
+			svg.append("text")
+				.attr("x",525)
+				.attr("y",290)
+				.style("text-anchor", "middle")
+				.text("HR");		
+			svg.append("text")
+				.attr("x",525)
+				.attr("y",440)
+				.style("text-anchor", "middle")
+				.text("Avg");								
+			svg.append("text")
+				.attr("x",600)
+				.attr("y",290)
+				.style("text-anchor", "middle")
+				.text("33");	
+			svg.append("text")
+				.attr("x",650)
+				.attr("y",290)
+				.style("text-anchor", "middle")
+				.text("47");
+			svg.append("text")
+				.attr("x",700)
+				.attr("y",290)
+				.style("text-anchor", "middle")
+				.text("62");		
+			svg.append("text")
+				.attr("x",525)
+				.attr("y",305)
+				.style("text-anchor", "middle")
+				.text("Right Handed");
+			svg.append("text")
+				.attr("x",525)
+				.attr("y",365)
+				.style("text-anchor", "middle")
+				.text("Left Handed");
+			svg.append("text")
+				.attr("x",525)
+				.attr("y",425)
+				.style("text-anchor", "middle")
+				.text("Switch");		
+			svg.append("circle")
+				.attr("cx", 600)
+				.attr("cy", 300)
+				.attr("r",4)
+				.attr("fill","rgb(0,161,0)");
+			svg.append("circle")
+				.attr("cx", 650)
+				.attr("cy", 300)
+				.attr("r",6)
+				.attr("fill","rgb(0,123,0)");	
+			svg.append("circle")
+				.attr("cx", 700)
+				.attr("cy", 300)
+				.attr("r",8)
+				.attr("fill","rgb(0,84,0)");		
+			svg.append("circle")
+				.attr("cx", 600)
+				.attr("cy", 360)
+				.attr("r",4)
+				.attr("fill","rgb(0,0,161)");
+			svg.append("circle")
+				.attr("cx", 650)
+				.attr("cy", 360)
+				.attr("r",6)
+				.attr("fill","rgb(0,0,123)");	
+			svg.append("circle")
+				.attr("cx", 700)
+				.attr("cy", 360)
+				.attr("r",8)
+				.attr("fill","rgb(0,0,84)");	
+			svg.append("circle")
+				.attr("cx", 600)
+				.attr("cy", 420)
+				.attr("r",4)
+				.attr("fill","rgb(161,0,0)");
+			svg.append("circle")
+				.attr("cx", 650)
+				.attr("cy", 420)
+				.attr("r",6)
+				.attr("fill","rgb(123,0,0)");	
+			svg.append("circle")
+				.attr("cx", 700)
+				.attr("cy", 420)
+				.attr("r",8)
+				.attr("fill","rgb(84,0,0)");						
 			//Create X axis
 			svg.append("g")
 				.attr("class", "axis")
@@ -110,23 +208,23 @@ csv.map(function(d) {
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);	
 			svg.append("text")      // text label for the x axis
-        .attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
-        .attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
-        .style("text-anchor", "middle")
-        .text("Height");
-svg.append("text")      // text label for the y axis
-        .attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
-        .attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
-        .style("text-anchor", "middle")
-        .text("Weight");			
+				.attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
+				.attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
+				.style("text-anchor", "middle")
+				.text("Height");
+			svg.append("text")      // text label for the y axis
+				.attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
+				.attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
+				.style("text-anchor", "middle")
+				.text("Weight");			
     });
 d3.selectAll("p").on("click", function() { //click paragraph to filter
-var xScale = d3.scale.linear()
-								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
-								 .range([padding, w - padding * 2]);
-var paragraphID = d3.select(this).attr("id");
-if (paragraphID == "A") {
-	d3.selectAll("circle").attr("cx", function(d) { 
+	var xScale = d3.scale.linear()
+					.domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
+					.range([padding, w - padding * 2]);
+	var paragraphID = d3.select(this).attr("id");
+	if (paragraphID == "A") {
+		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
 			   		return xScale(d[0]);}
 					if(d[4]=="R"){
@@ -134,8 +232,8 @@ if (paragraphID == "A") {
 					if(d[4]=="B"){
 			   		return xScale(d[0]);}
 			   });};
-if (paragraphID == "R") {
-	d3.selectAll("circle").attr("cx", function(d) { 
+	if (paragraphID == "R") {
+		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
 			   		return xScale(d[0])+1000000;}
 					if(d[4]=="R"){
@@ -143,8 +241,8 @@ if (paragraphID == "R") {
 					if(d[4]=="B"){
 			   		return xScale(d[0])+1000000;}
 			   });};
-if (paragraphID == "L") {
-	d3.selectAll("circle").attr("cx", function(d) { 
+	if (paragraphID == "L") {
+		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
 			   		return xScale(d[0]);}
 					if(d[4]=="R"){
@@ -152,8 +250,8 @@ if (paragraphID == "L") {
 					if(d[4]=="B"){
 			   		return xScale(d[0])+1000000;}
 			   });};
-if (paragraphID == "B") {
-	d3.selectAll("circle").attr("cx", function(d) { 
+	if (paragraphID == "B") {
+		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
 			   		return xScale(d[0])+1000000;}
 					if(d[4]=="R"){
@@ -163,7 +261,6 @@ if (paragraphID == "B") {
 			   });};
 });
 
-		
 		
 
 </script> 
