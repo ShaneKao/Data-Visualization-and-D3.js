@@ -26,3 +26,15 @@ I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A
 ![Initial d3 Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/d3_plot_v1.png)
 
 ### Feedback
+
+#### Interview #1
+
+> Adding legend will make your plot more understandable
+
+#### Interview #2
+
+> The darkness of points is not obvious
+
+#### Interview #3
+
+> Some data points overlap, it is hard to observe the effect of different type of hitter
