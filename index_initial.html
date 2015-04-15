@@ -21,41 +21,40 @@ var w = 800;
 var h = 600;
 var padding = 90;
 d3.csv('data/baseball_data.csv', function(csv){
-      
-csv.map(function(d) {
-    hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
-})
+	csv.map(function(d) {
+	hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
+	})
 		//Create scale functions
-			var xScale = d3.scale.linear()
+	var xScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
 								 .range([padding, w - padding * 2]);
-			var yScale = d3.scale.linear()
+	var yScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[1]; }), d3.max(hw, function(d) { return d[1]; })])
 								 .range([h - padding, padding]);
-			var rScale = d3.scale.linear()
+	var rScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[2]; }), d3.max(hw, function(d) { return d[2]; })])
 								 .range([1,10]);
-			var cScale = d3.scale.linear()
+	var cScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[3]; }), d3.max(hw, function(d) { return d[3]; })])
 								 .range([200,50]);					 
 			//Define X axis
-			var xAxis = d3.svg.axis()
+	var xAxis = d3.svg.axis()
 							  .scale(xScale)
 							  .orient("bottom")
 							  .ticks(5);
 			//Define Y axis
-			var yAxis = d3.svg.axis()
+	var yAxis = d3.svg.axis()
 							  .scale(yScale)
 							  .orient("left")
 							  .ticks(10);
 			//Create SVG element
-			var svg = d3.select("body")
+	var svg = d3.select("body")
 						.append("svg")
 						.attr("width", w)
 						.attr("height", h);
 			//Create circles
 			
-			svg.selectAll("circle")
+	svg.selectAll("circle")
 			   .data(hw)
 			   .enter()
 			   .append("circle")
@@ -70,15 +69,15 @@ csv.map(function(d) {
 			   })
 			   .attr("fill", function(d) { //color: avg
 					if(d[4]=="L"){
-			   		return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
+						return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
 					if(d[4]=="R"){
-			   		return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
+						return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
 					if(d[4]=="B"){
-			   		return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
+						return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
 			   })
 		
 			   
-			    .append("title")
+			   .append("title")
 			   .text(function(d) {
 			   		return "Name: " + d[5]+"\n"+"Handedness: " + d[4]+"\n"+"Avg: " + d[3]+"\n"+"HR: " + d[2];
 			   });
@@ -86,22 +85,22 @@ csv.map(function(d) {
 		
 			
 			//Create X axis
-			svg.append("g")
+	svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
 			
 			//Create Y axis
-			svg.append("g")
+	svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);	
-			svg.append("text")      // text label for the x axis
+	svg.append("text")      // text label for the x axis
         .attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
         .attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
         .style("text-anchor", "middle")
         .text("Height");
-svg.append("text")      // text label for the y axis
+	svg.append("text")      // text label for the y axis
         .attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
         .attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
         .style("text-anchor", "middle")

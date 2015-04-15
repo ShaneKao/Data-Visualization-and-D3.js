@@ -25,40 +25,40 @@ var h = 600;
 var padding = 90;
 d3.csv('data/data.csv', function(csv){
       
-csv.map(function(d) {
-    hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
-})
+	csv.map(function(d) {
+		hw.push([+d.height,+d.weight,+d.HR,+d.avg,d.handedness,d.name]);
+	})
 		//Create scale functions
-			var xScale = d3.scale.linear()
+	var xScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
 								 .range([padding, w - padding * 2]);
-			var yScale = d3.scale.linear()
+	var yScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[1]; }), d3.max(hw, function(d) { return d[1]; })])
 								 .range([h - padding, padding]);
-			var rScale = d3.scale.linear()
+	var rScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[2]; }), d3.max(hw, function(d) { return d[2]; })])
 								 .range([1,10]);
-			var cScale = d3.scale.linear()
+	var cScale = d3.scale.linear()
 								 .domain([d3.min(hw, function(d) { return d[3]; }), d3.max(hw, function(d) { return d[3]; })])
 								 .range([200,50]);					 
 			//Define X axis
-			var xAxis = d3.svg.axis()
+	var xAxis = d3.svg.axis()
 							  .scale(xScale)
 							  .orient("bottom")
 							  .ticks(5);
 			//Define Y axis
-			var yAxis = d3.svg.axis()
+	var yAxis = d3.svg.axis()
 							  .scale(yScale)
 							  .orient("left")
 							  .ticks(10);
 			//Create SVG element
-			var svg = d3.select("body")
+	var svg = d3.select("body")
 						.append("svg")
 						.attr("width", w)
 						.attr("height", h);
 			//Create circles
 			
-			svg.selectAll("circle")
+	svg.selectAll("circle")
 			   .data(hw)
 			   .enter()
 			   .append("circle")
@@ -73,146 +73,135 @@ csv.map(function(d) {
 			   })
 			   .attr("fill", function(d) { //color: avg
 					if(d[4]=="L"){
-			   		return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
+						return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
 					if(d[4]=="R"){
-			   		return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
+						return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
 					if(d[4]=="B"){
-			   		return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
+						return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
 			   })
-		
-			   /*
-				 .on("click", function(d) {//selectall circle
-				
-				 if (d[4] == "R"){
-			   		d3.select(this).attr("fill","orange");}
-				if (d[4] == "B"){
-			   		console.log(d[4]);}	
-				
-			   })
-			   */
-			    .append("title")
+			   .append("title")
 			   .text(function(d) {
 			   		return "Name: " + d[5]+"\n"+"Handedness: " + d[4]+"\n"+"Avg: " + d[3]+"\n"+"HR: " + d[2];
 			   });
 			   ;
 			//Create legend
-			svg.append("text")
+	svg.append("text")
 				.attr("x",600)
 				.attr("y",440)
 				.style("text-anchor", "middle")
 				.text(".239");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",650)
 				.attr("y",440)
 				.style("text-anchor", "middle")
 				.text(".247");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",700)
 				.attr("y",440)
 				.style("text-anchor", "middle")
 				.text(".255");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",525)
 				.attr("y",290)
 				.style("text-anchor", "middle")
 				.text("HR");		
-			svg.append("text")
+	svg.append("text")
 				.attr("x",525)
 				.attr("y",440)
 				.style("text-anchor", "middle")
 				.text("Avg");								
-			svg.append("text")
+	svg.append("text")
 				.attr("x",600)
 				.attr("y",290)
 				.style("text-anchor", "middle")
 				.text("33");	
-			svg.append("text")
+	svg.append("text")
 				.attr("x",650)
 				.attr("y",290)
 				.style("text-anchor", "middle")
 				.text("47");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",700)
 				.attr("y",290)
 				.style("text-anchor", "middle")
 				.text("62");		
-			svg.append("text")
+	svg.append("text")
 				.attr("x",525)
 				.attr("y",305)
 				.style("text-anchor", "middle")
 				.text("Right Handed");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",525)
 				.attr("y",365)
 				.style("text-anchor", "middle")
 				.text("Left Handed");
-			svg.append("text")
+	svg.append("text")
 				.attr("x",525)
 				.attr("y",425)
 				.style("text-anchor", "middle")
 				.text("Switch");		
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 600)
 				.attr("cy", 300)
 				.attr("r",4)
 				.attr("fill","rgb(0,161,0)");
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 650)
 				.attr("cy", 300)
 				.attr("r",6)
 				.attr("fill","rgb(0,123,0)");	
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 700)
 				.attr("cy", 300)
 				.attr("r",8)
 				.attr("fill","rgb(0,84,0)");		
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 600)
 				.attr("cy", 360)
 				.attr("r",4)
 				.attr("fill","rgb(0,0,161)");
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 650)
 				.attr("cy", 360)
 				.attr("r",6)
 				.attr("fill","rgb(0,0,123)");	
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 700)
 				.attr("cy", 360)
 				.attr("r",8)
 				.attr("fill","rgb(0,0,84)");	
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 600)
 				.attr("cy", 420)
 				.attr("r",4)
 				.attr("fill","rgb(161,0,0)");
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 650)
 				.attr("cy", 420)
 				.attr("r",6)
 				.attr("fill","rgb(123,0,0)");	
-			svg.append("circle")
+	svg.append("circle")
 				.attr("cx", 700)
 				.attr("cy", 420)
 				.attr("r",8)
 				.attr("fill","rgb(84,0,0)");						
 			//Create X axis
-			svg.append("g")
+	svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
 			
 			//Create Y axis
-			svg.append("g")
+	svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);	
-			svg.append("text")      // text label for the x axis
+	svg.append("text")      // text label for the x axis
 				.attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
 				.attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
 				.style("text-anchor", "middle")
 				.text("Height");
-			svg.append("text")      // text label for the y axis
+	svg.append("text")      // text label for the y axis
 				.attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
 				.attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
 				.style("text-anchor", "middle")
@@ -226,38 +215,38 @@ d3.selectAll("p").on("click", function() { //click paragraph to filter
 	if (paragraphID == "A") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 					if(d[4]=="R"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 					if(d[4]=="B"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 			   });};
 	if (paragraphID == "R") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 					if(d[4]=="R"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 					if(d[4]=="B"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 			   });};
 	if (paragraphID == "L") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 					if(d[4]=="R"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 					if(d[4]=="B"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 			   });};
 	if (paragraphID == "B") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 					if(d[4]=="R"){
-			   		return xScale(d[0])+1000000;}
+						return xScale(d[0])+1000000;}
 					if(d[4]=="B"){
-			   		return xScale(d[0]);}
+						return xScale(d[0]);}
 			   });};
 });
 
