@@ -56,7 +56,7 @@ Here I put all variable in the plot as follows, nomarlly, height and weight are 
 
 I'd like to explore how height correlate to number of home runs, I make a bar chart with height on the x-axis and median home-runs on the y-axis
 
-
+![Fourth d3 Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/d3_plot_v4.png)
 
 ### Conclude
 
