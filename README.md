@@ -60,7 +60,7 @@ I'd like to explore how height correlate to number of home runs, I make a bar ch
 
 ### Conclude
 
-Based on those plots, we can see batters with low height or high height are not powerful, less likely to hit home run, it seems hitter with medium body size have better batting performance, and this phenomenon also found with different type of hitter. 
+Based on those plots, we can see batters with high height are not powerful, less likely to hit home run. 
 
 ### Resources
 
