@@ -13,6 +13,8 @@ The data set containing 1,157 baseball players including their handedness (right
 I downloaded the data from [Baseball Data](https://www.google.com/url?q=https%3A%2F%2Fs3.amazonaws.com%2Fudacity-hosted-downloads%2Fud507%2Fbaseball_data.csv&sa=D&sntz=1&usg=AFQjCNEkK8NRImfPdhM7cLkivKaJ0WldFA). Exploratory data analysis was conducted using Rstudio as follows: 
 ![Initial R Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/r_plot.png)
 
+Here I put all variable in the plot as follows, nomarlly, height and weight are correlated, so I use these two variable to determine the site of data point, `handedness` is discrete, I think different shape may be a good choice, `avg` and `HR` are continuous, I use darkness and size to represent them.
+
 * x: `height`, y: `weight`
 * circle:  right handed hitter, triangle: left handed hitter, square : switch hitter
 * darker color, higher batting average
