@@ -7,7 +7,7 @@
  </style>
 </head> 
 
-<h1 id="output"> The differences among the performance of the baseball players
+<h1 id="output"> Tall and short baseball players hit less home runs than medium height players
 </h1> 
 <body>
 <p id="A">Click to see all hitter</p>
@@ -30,32 +30,48 @@ d3.csv('data/data.csv', function(csv){
 	})
 		//Create scale functions
 	var xScale = d3.scale.linear()
-								 .domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
-								 .range([padding, w - padding * 2]);
+					.domain([d3.min(hw, function(d) {
+						return d[0]; 
+					}), d3.max(hw, function(d) {
+						return d[0]; 
+					})])
+					.range([padding, w - padding * 2]);
 	var yScale = d3.scale.linear()
-								 .domain([d3.min(hw, function(d) { return d[1]; }), d3.max(hw, function(d) { return d[1]; })])
-								 .range([h - padding, padding]);
-	var rScale = d3.scale.linear()
-								 .domain([d3.min(hw, function(d) { return d[2]; }), d3.max(hw, function(d) { return d[2]; })])
-								 .range([1,10]);
+					.domain([d3.min(hw, function(d) {
+						return d[1]; 
+					}), d3.max(hw, function(d) {
+						return d[1]; 
+					})])
+					.range([h - padding, padding]);
+	var rScale = d3.scale.sqrt()
+					.domain([d3.min(hw, function(d) {
+					return d[2]; 
+					}), d3.max(hw, function(d) {
+						return d[2]; 
+					})])
+					.range([1,10]);
 	var cScale = d3.scale.linear()
-								 .domain([d3.min(hw, function(d) { return d[3]; }), d3.max(hw, function(d) { return d[3]; })])
-								 .range([200,50]);					 
+					.domain([d3.min(hw, function(d) {
+						return d[3]; 
+					}), d3.max(hw, function(d) {
+						return d[3]; 
+					})])
+					.range([200,50]);					 
 			//Define X axis
 	var xAxis = d3.svg.axis()
-							  .scale(xScale)
-							  .orient("bottom")
-							  .ticks(5);
+					.scale(xScale)
+					.orient("bottom")
+					.ticks(5);
 			//Define Y axis
 	var yAxis = d3.svg.axis()
-							  .scale(yScale)
-							  .orient("left")
-							  .ticks(10);
+					.scale(yScale)
+					.orient("left")
+					.ticks(10);
 			//Create SVG element
 	var svg = d3.select("body")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h);
 			//Create circles
 			
 	svg.selectAll("circle")
@@ -73,11 +89,14 @@ d3.csv('data/data.csv', function(csv){
 			   })
 			   .attr("fill", function(d) { //color: avg
 					if(d[4]=="L"){
-						return "rgb(0,0,"+Math.round(cScale(d[3]))+")";}
+						return "rgb(0,0,"+Math.round(cScale(d[3]))+")";
+						}
 					if(d[4]=="R"){
-						return "rgb(0,"+Math.round(cScale(d[3]))+",0)";}
+						return "rgb(0,"+Math.round(cScale(d[3]))+",0)";
+						}
 					if(d[4]=="B"){
-						return "rgb("+Math.round(cScale(d[3]))+",0,0)";}
+						return "rgb("+Math.round(cScale(d[3]))+",0,0)";
+						}
 			   })
 			   .append("title")
 			   .text(function(d) {
@@ -197,48 +216,73 @@ d3.csv('data/data.csv', function(csv){
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);	
 	svg.append("text")      // text label for the x axis
-				.attr("x", xScale(d3.median(hw, function(d) { return d[0]; })) )
-				.attr("y",  yScale(d3.min(hw, function(d) { return d[1]; }))+padding/2 )
+				.attr("x", xScale(d3.median(hw, function(d) {
+					return d[0]; 
+				})) )
+				.attr("y",  yScale(d3.min(hw, function(d) {
+					return d[1]; 
+				}))+padding/2 )
 				.style("text-anchor", "middle")
 				.text("Height");
 	svg.append("text")      // text label for the y axis
-				.attr("x", xScale(-1.5+d3.min(hw, function(d) { return d[0]; })) )
-				.attr("y",  yScale(3+d3.median(hw, function(d) { return d[1]; })) )
+				.attr("x", xScale(-1.5+d3.min(hw, function(d) { 
+					return d[0]; 
+				})) )
+				.attr("y",  yScale(3+d3.median(hw, function(d) {
+					return d[1]; 
+				})) )
 				.style("text-anchor", "middle")
 				.text("Weight");			
     });
-d3.selectAll("p").on("click", function() { //click paragraph to filter
-	var xScale = d3.scale.linear()
-					.domain([d3.min(hw, function(d) { return d[0]; }), d3.max(hw, function(d) { return d[0]; })])
-					.range([padding, w - padding * 2]);
-	var paragraphID = d3.select(this).attr("id");
-	if (paragraphID == "A") {
-		d3.selectAll("circle").attr("cx", function(d) { 
+d3.selectAll("p")
+	.on("click", function() { //click paragraph to filter
+		var xScale = d3.scale.linear()
+						.domain([d3.min(hw, function(d) { 
+							return d[0]; 
+						}), d3.max(hw, function(d) {
+							return d[0]; 
+						})])
+						.range([padding, w - padding * 2]);
+		var paragraphID = d3.select(this).attr("id");
+		if (paragraphID == "A") {
+			d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-						return xScale(d[0]);}
+							return xScale(d[0]);
+						}
 					if(d[4]=="R"){
-						return xScale(d[0]);}
+							return xScale(d[0]);
+						}
 					if(d[4]=="B"){
-						return xScale(d[0]);}
-			   });};
+							return xScale(d[0]);
+						}
+					});
+			   };
 	if (paragraphID == "R") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-						return xScale(d[0])+1000000;}
+							return xScale(d[0])+1000000;
+						}
 					if(d[4]=="R"){
-						return xScale(d[0]);}
+							return xScale(d[0]);
+						}
 					if(d[4]=="B"){
-						return xScale(d[0])+1000000;}
-			   });};
+							return xScale(d[0])+1000000;
+						}
+			   });
+			   };
 	if (paragraphID == "L") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
-						return xScale(d[0]);}
+							return xScale(d[0]);
+						}
 					if(d[4]=="R"){
-						return xScale(d[0])+1000000;}
+							return xScale(d[0])+1000000;
+						}
 					if(d[4]=="B"){
-						return xScale(d[0])+1000000;}
-			   });};
+							return xScale(d[0])+1000000;
+						}
+			   });
+			   };
 	if (paragraphID == "B") {
 		d3.selectAll("circle").attr("cx", function(d) { 
 					if(d[4]=="L"){
@@ -247,7 +291,8 @@ d3.selectAll("p").on("click", function() { //click paragraph to filter
 						return xScale(d[0])+1000000;}
 					if(d[4]=="B"){
 						return xScale(d[0]);}
-			   });};
+			   });
+			   };
 });
 
 		

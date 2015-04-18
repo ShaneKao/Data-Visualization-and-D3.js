@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+   <meta charset="utf-8" /> 
+   <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+ <style type="text/css">
+	rect:hover {
+				fill: orange;
+			}
+ </style>
+</head> 
+
+<h1 id="output"> Tall baseball players hit less home runs
+</h1> 
+<body>
+<script type="text/javascript">
+
+var hr = [];
+var height=[];
+var w = 500;
+var h = 100;
+var barPadding = 1;
+
+d3.csv('data/data_revised.csv', function(csv){
+	csv.map(function(d) {
+		hr.push(+d.median_HR+1);
+		height.push(+d.height);		
+	})
+	//Create SVG element
+	var svg = d3.select("body")
+				.append("svg")
+				.attr("width", w+100)
+				.attr("height", h+100);
+	//Create bars			
+	svg.selectAll("rect")
+			   .data(hr)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return 100+i * (w / hr.length);
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d * 4);
+			   })
+			   .attr("width", w / hr.length - barPadding)
+			   .attr("height", function(d) {
+			   		return d * 4;
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(0, 0, 255)";
+			   })		
+			   .append("title")
+			   .text(function(d) {
+			   		return "median HR: " + (d-1).toString();
+			   });
+	//Create x-axis		   
+	svg.selectAll("text")
+			   .data(height)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d;
+			   })
+			   .attr("x", function(d, i) {
+			   		return i * (w / height.length) + 105;
+			   })
+			   .attr("y", 115)
+	//Create labels		   
+	svg.append("text")
+				.attr("x",350)
+				.attr("y",150)
+				.style("text-anchor", "middle")
+				.text("Height");	
+	svg.append("text")
+				.attr("x",50)
+				.attr("y",60)
+				.style("text-anchor", "middle")
+				.text("Median HR");				
+	});
+	
+
+
+
+
+
+
+
+
+
+</script> 
+</body>
+</html> 
