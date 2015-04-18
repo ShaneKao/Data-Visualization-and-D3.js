@@ -52,6 +52,12 @@ Here I put all variable in the plot as follows, nomarlly, height and weight are 
 
 ![Third d3 Plot](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/plot/d3_plot_v3.png)
 
+### Revised Design
+
+I'd like to explore how height correlate to number of home runs, I make a bar chart with height on the x-axis and median home-runs on the y-axis
+
+
+
 ### Conclude
 
 Based on those plots, we can see batters with low height or high height are not powerful, less likely to hit home run, it seems hitter with medium body size have better batting performance, and this phenomenon also found with different type of hitter. 
