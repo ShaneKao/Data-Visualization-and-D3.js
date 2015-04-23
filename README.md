@@ -67,3 +67,7 @@ Based on those plots, we can see batters with high height are not powerful, less
 [Data Visualization and D3.js](https://www.udacity.com/course/ud507)
 
 [Interactive Data Visualization for the Web](http://shop.oreilly.com/product/0636920026938.do)
+
+### Certificate
+
+![Certificate](https://raw.githubusercontent.com/ShaneKao/Data-Visualization-and-D3.js/master/certificate.png)
